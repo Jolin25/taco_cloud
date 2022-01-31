@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.3</version><!--springboot的版本-->
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>sia</groupId>
+    <artifactId>taco-cloud</artifactId>
+    <!-- 默认就是jar的形式来打包，因为java云平台都支持jar，
+      而war不一定，war属于部署到传统java应用服务器上的打包形式了，只有部分java云平台支持-->
+    <version>0.0.1-SNAPSHOT</version>
+    <name>taco-cloud</name>
+    <description>taco cloud example</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>true</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--test是默认会加入的依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins><!--springboot的插件-->
+            <plugin><!--maven插件功能：1.提供了maven goal，使得该应用可以使用maven来运行
+                                      2.确保依赖的所有库都在jar文件中，并且可以保证在运行时于类路径下可用
+                                      3.在jar中生成了manifest文件，里面有一些基本配置，例如可执行JAR主类设置为xxxApplication-->
+                <!--主类：因为这个项目是通过运行jar包来执行的，所以就要指明是执行哪个类来开始的，也就是主类-->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
