@@ -3,11 +3,13 @@ package tacos;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tacos.Ingredient.Type;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,8 +66,17 @@ public class DesignTacoController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * knowledge point:
+     * Valid注解是spring提供的，可以在绑定完表单数据之后，调用processDesign方法之前，
+     * 根据Taco类的设计对design进行校验。
+     * 如果有错，就会把错误放入Errors对象中，并传递给processDesign方法里。
+     */
     @PostMapping
-    public String processDesign(Taco design) {
+    public String processDesign(@Valid Taco design, Errors errors) {
+        if (errors.hasErrors()) {
+            return "design";
+        }
         log.info("Processing design:" + design);
         //todo 这里会对设计的taco进行保存
         /** knowledge point:
