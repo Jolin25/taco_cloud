@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
+import tacos.controller.HomeController;
 /** knowledge point:
  * 　　import static静态导入是JDK1.5中的新特性。
  *

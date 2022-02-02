@@ -1,6 +1,6 @@
 // tag::all[]
 // tag::allButValidation[]
-package tacos;
+package tacos.po;
 
 import java.util.List;
 
