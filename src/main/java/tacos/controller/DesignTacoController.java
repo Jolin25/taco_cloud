@@ -1,12 +1,15 @@
 package tacos.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import tacos.data.IngredientRepository;
+import tacos.data.TacoRepository;
 import tacos.po.Ingredient;
 import tacos.po.Ingredient.Type;
 import tacos.po.Taco;
@@ -27,6 +30,16 @@ import java.util.stream.Collectors;
 @Controller // 表示该类为一个bean
 @RequestMapping("/design") // 指明该处理器所接受的请求类型
 public class DesignTacoController {
+
+    private final TacoRepository tacoRepository;
+    private final IngredientRepository ingredientRepository;
+
+    @Autowired
+    public DesignTacoController(TacoRepository tacoRepository, IngredientRepository ingredientRepository) {
+        this.tacoRepository = tacoRepository;
+        this.ingredientRepository = ingredientRepository;
+    }
+
     /**
      * knowledge point:
      * Controller的作用就是获取数据，然后有两种模式返回数据：
@@ -79,7 +92,9 @@ public class DesignTacoController {
             return "design";
         }
         log.info("Processing design:" + design);
-        //todo 这里会对设计的taco进行保存
+        tacoRepository.save(design);
+        Iterable<Taco> all = tacoRepository.findAll();
+        log.info("all:" + all);
         /** knowledge point:
          * redirect:  代表重定向，这是后台干的，把请求继续发送给/orders/current
          */
