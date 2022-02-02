@@ -19,21 +19,24 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 视图层：thymeleaf-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!--SpringMVC-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!--开发工具-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>true</scope>
             <optional>true</optional>
         </dependency>
+        <!--开发工具-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -45,9 +48,26 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--validation用于SpringMVC在Controller层对参数的校验-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!--spring对jdbc的支持-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!--数据库：H2,这种是嵌入式数据库的方式-->
+        <!--在开发应用的过程中使用内嵌的内存数据库是非常方便的，很明显，内存数据库不提供数据的持久化存储；
+        当应用启动时你需要填充你的数据库，当应用结束时数据将会丢弃。
+        Spring Boot可以自动的配置内嵌的H2、HSQL、Derby数据库。
+        你不需要提供任何链接URLs，只需要简单的提供一个你需要使用的内嵌数据库的依赖即可。
+        -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

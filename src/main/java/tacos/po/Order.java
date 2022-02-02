@@ -9,12 +9,15 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 /**
  * @author Joly
  */
 @Data
 public class Order {
+    private Long id;
+    private Date createdAt;
     @NotBlank(message = "Name is required")
     private String name;
     @NotBlank(message = "Street is required")
@@ -25,7 +28,7 @@ public class Order {
     private String state;
 
     /**
-     * ÓÊÕş±àÂë
+     * é‚®æ”¿ç¼–ç 
      */
     @NotBlank(message = "Zip is required")
     private String zip;
