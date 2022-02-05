@@ -101,11 +101,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 配置的顺序很重要，前面的优先级比后面高
+
         http
+                // 进行授权相关的配置
                 .authorizeRequests()
+                // 配置的顺序很重要，前面的优先级比后面高
                 .antMatchers("/design", "/orders")
-                .hasRole("ROLE_USER")
-                .antMatchers("/", "/**").permitAll();
+                .access("hasRole('ROLE_USER')")
+                .antMatchers("/", "/**").permitAll()
+                // and方法用于连接上下两种配置
+                .and()
+                // 进行http相关的配置
+                .formLogin()
+                // 用于告诉spring security 自定义登录页的路径是什么(这是路径不是页面)
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/design", true);
+
     }
 }
