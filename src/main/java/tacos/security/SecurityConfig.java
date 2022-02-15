@@ -77,20 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    }
 
-    /**
-     * 自定义用户认证
-     * 通过jpa到数据库中根据用户名找到用户，将转换后的密码和数据库中的密码进行比对
-     *
-     * @param
-     * @return
-     * @date 2022/2/3
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(encoder());
-
-    }
 
     /**
      * 用于配置需要拦截的请求，以及对应的如需访问用户需要具备的条件
@@ -106,7 +92,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 进行授权相关的配置
                 .authorizeRequests()
                 // 配置的顺序很重要，前面的优先级比后面高
+                //设置哪些路径会被要求认证和授权
                 .antMatchers("/design", "/orders")
+                // 要求登陆者有哪些角色
                 .access("hasRole('ROLE_USER')")
                 .antMatchers("/", "/**").permitAll()
                 // and方法用于连接上下两种配置
@@ -117,6 +105,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/design", true);
+
+    }
+
+    /**
+     * 自定义用户认证（authentication 认证）
+     * 通过jpa到数据库中根据用户名找到用户，将转换后的密码和数据库中的密码进行比对
+     *
+     * @param
+     * @return
+     * @date 2022/2/3
+     */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // 因为默认就是通过username去查找密码，进行匹配，所以就把实现给约定化了，我们就不用再实现一遍
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(encoder());
 
     }
 }
